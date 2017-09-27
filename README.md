@@ -1,3 +1,28 @@
+
+This is a repo that included minimal updates to reproduce an error to do with dynamic imports and tests running in node.  Please see the commit history for details of the changes.
+
+## Brief Summary ##
+
+If [dynamic `import` expressions](https://blogs.msdn.microsoft.com/typescript/2017/06/27/announcing-typescript-2-4/) are being used AND `allowSyntheticDefaultImports` is set to `true` in `tsconfig.json`, it appears that the imports are not correctly converted into node-friendly `require` statements for the tests.
+
+## Reproduction Steps ##
+
+My node version is `v8.5.0`
+
+Pull this repo and run `yarn install` then `yarn test` (or the npm equivalents) - the test should fail with an `Unexpected token` error indicating the dynamic import.
+
+Remove the `allowSyntheticDefaultImports` tsconfig value and rerun the tests and they should pass.
+
+## Conclusion ##
+
+I'm not sure why this issue occurs, and I have been unable to reproduce it using the simple ts "greeter" example. There are so many moving parts involved (such as WebPack, Jest, etc) that it could be difficult to work out exactly what's happening.
+
+I've kept this repo in order to easily test for it in future.
+
+---
+---
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -283,7 +308,7 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
-The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
+The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
 
 ## Formatting Code Automatically
 
@@ -1769,7 +1794,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
