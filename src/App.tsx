@@ -1,8 +1,29 @@
 import * as React from 'react';
-import Child from './Child';
 import './App.css';
 
 const logo = require('./logo.svg');
+
+interface ChildLoaderState {
+  Child?: React.SFC;
+}
+
+class ChildLoader extends React.Component<{}, ChildLoaderState> {
+  state: ChildLoaderState = {};
+
+  async componentWillMount() {
+    const { default: Child } = await import('./Child');
+    this.setState({ Child });
+  }
+
+  render() {
+    const { Child } = this.state;
+    if (Child) {
+      return <Child />;
+    } else {
+      return <div>Loading ...</div>;
+    }
+  }
+}
 
 class App extends React.Component {
   render() {
@@ -15,7 +36,7 @@ class App extends React.Component {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <Child />
+        <ChildLoader />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-const Child = () => <div>I'm a child component</div>;
+const Child: React.SFC = () => <div>I'm a child component</div>;
 
 export default Child;
